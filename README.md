@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+
 # Welcome to React Router!
 
 A modern, production-ready template for building full-stack React applications using React Router.
@@ -84,4 +86,10 @@ This template comes with [Tailwind CSS](https://tailwindcss.com/) already config
 
 ---
 
-Built with ❤️ using React Router.
+# Built with ❤️ using React Router.
+
+# production-study
+
+Remix, Supabase, Shadcn, Cloudflare 등을 활용한 프로덕트 개발
+
+> > > > > > > 23ce2b77ad528b2cae902b5e06673e4cd240bb04
