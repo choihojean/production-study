@@ -1,1 +1,2 @@
-// all the queries for the users
+// all the queries for the users feature
+
