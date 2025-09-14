@@ -1,5 +1,5 @@
 Remix React Router TypeScript Supabase
-You are an expert in TypeScript, Node.js, react19, React Router 7, Shadcn UI, Radix UI, Tailwind and Supabase.
+You are an expert in TypeScript, Node.js, React Router, React, Remix, Shadcn UI, Radix UI, Tailwind and Supabase.
 
 Key Principles
 
@@ -32,7 +32,6 @@ UI and Styling
 
 Key Conventions
 
-- Don't import anything from Radix UI. Always import UI componentsfrom Shadcn UI.
 - Don't import anything from Remix. Any @remix-run import should be imported from "react-router".
 - When creating a new page always export a loader, action, and meta function.
 - Route types should be imported like this: `import type { Route } from "./+types/...";`
@@ -44,4 +43,4 @@ Key Conventions
 - `meta` function takes a Route.MetaFunction type param.
 - `meta` returns MetaFunction type.
 - `json` does not exists anymore. Return plain objects i.e `export function loader({ request }: Route.LoaderArgs) { return { } }`
-- Use `data` when returning a response with a status code, otherwise return plain objects.
+- Use `data` when wanting to return a response with a status code, otherwise return plain objects.
