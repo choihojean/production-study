@@ -1,6 +1,7 @@
 import type { MetaFunction } from "react-router";
 import { ProductCard } from "~/features/products/components/product-card";
-import { PostCard } from "~/features/community/components/post-card";
+import { PostCard } from "~/features/products/components/post-card";
+import { IdeaCard } from "~/features/ideas/components/idea-card";
 import { Button } from "~/common/components/ui/button";
 import { Link } from "react-router";
 
@@ -59,6 +60,30 @@ export default function HomePage() {
 						category="Productivity"
 						timeAgo="12 hours ago"
 						replyLink="/community/communityId"
+					/>
+				))}
+			</div>
+			<div className="grid grid-cols-3 gap-4">
+				<div>
+					<h2 className="text-5xl font-bold leading-tight tracking-tighter">
+						IdeasGPT
+					</h2>
+					<p className="text-xl font-light text-muted-foreground">
+						Find ideas for your next project
+					</p>
+					<Button variant="link" asChild className="text-lg p-0">
+						<Link to="/ideas">Explore All Ideas &rarr;</Link>
+					</Button>
+				</div>
+				{Array.from({ length: 10 }).map((_, index) => (
+					<IdeaCard
+						id="ideaId"
+						title="A startup that creates an AI-powered generated personal trainer, delivering customized fitness recommendations and tracking of progress using a mobile app to track workouts and progress as well as website to manage a business."
+						views={123}
+						timeAgo="12 hours ago"
+						likes={12}
+						claimLink="/ideas/ideaId/claim"
+						claimed={index % 2 === 0}
 					/>
 				))}
 			</div>
