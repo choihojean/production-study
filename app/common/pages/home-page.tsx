@@ -2,6 +2,8 @@ import type { MetaFunction } from "react-router";
 import { ProductCard } from "~/features/products/components/product-card";
 import { PostCard } from "~/features/products/components/post-card";
 import { IdeaCard } from "~/features/ideas/components/idea-card";
+import { JobCard } from "~/features/jobs/components/job-card";
+import { TeamCard } from "~/features/teams/components/team-card";
 import { Button } from "~/common/components/ui/button";
 import { Link } from "react-router";
 
@@ -84,6 +86,59 @@ export default function HomePage() {
 						likes={12}
 						claimLink="/ideas/ideaId/claim"
 						claimed={index % 2 === 0}
+					/>
+				))}
+			</div>
+			<div className="grid grid-cols-4 gap-4">
+				<div>
+					<h2 className="text-5xl font-bold leading-tight tracking-tighter">
+						Latest Jobs
+					</h2>
+					<p className="text-xl font-light text-muted-foreground">
+						Find your dream job
+					</p>
+					<Button variant="link" asChild className="text-lg p-0">
+						<Link to="/jobs">Explore All Jobs &rarr;</Link>
+					</Button>
+				</div>
+				{Array.from({ length: 11 }).map((_, index) => (
+					<JobCard
+						key={index}
+						id="jobId"
+						title="Software Engineer"
+						company="Meta"
+						logoUrl="https://github.com/facebook.png"
+						timeAgo="12 hours ago"
+						jobType="Full-time"
+						location="San Francisco, CA"
+						salary="$100,000 - $120,000"
+						workLocation="Remote"
+						applyLink="/jobs/jobId/apply"
+					/>
+				))}
+			</div>
+			<div className="grid grid-cols-4 gap-4">
+				<div>
+					<h2 className="text-5xl font-bold leading-tight tracking-tighter">
+						Find a Team Mate
+					</h2>
+					<p className="text-xl font-light text-muted-foreground">
+						Join a team looking for a new member
+					</p>
+					<Button variant="link" asChild className="text-lg p-0">
+						<Link to="/teams">Explore All Teams &rarr;</Link>
+					</Button>
+				</div>
+				{Array.from({ length: 7 }).map((_, index) => (
+					<TeamCard
+						key={index}
+						id="teamId"
+						username="hojin"
+						userAvatar="https://github.com/hojin.png"
+						userFallback="H"
+						roles={["React Developer", "Backend Developer", "Product Manager"]}
+						projectDescription="a new social media platform"
+						joinLink="/teams/teamId/join"
 					/>
 				))}
 			</div>
