@@ -1,30 +1,58 @@
-import type { MetaFunction } from "react-router";
+import { DateTime } from "luxon";
 import type { Route } from "./+types/daily-leaderboard-page";
+import { data, isRouteErrorResponse } from "react-router";
+import { z } from "zod";
 
-export function meta({ params }: Route.MetaArgs): ReturnType<MetaFunction> {
-	return [
-		{ title: `Daily Leaderboard ${params.year}/${params.month}/${params.day} | wemake` },
-		{ name: "description", content: `Daily leaderboard for ${params.year}/${params.month}/${params.day}` },
-	];
-}
+const paramSchema = z.object({
+	year: z.coerce.number(),
+	month: z.coerce.number(),
+	day: z.coerce.number(),
+});
 
-export function loader({ params }: Route.LoaderArgs) {
+export const loader = ({ params }: Route.LoaderArgs) => {
+	const { success, data: parsedData } = paramSchema.safeParse(params);
+	if (!success) {
+		throw data({
+			error_code: "INVALID_PARAMS",
+			error_message: "The params are invalid",
+		}, { status: 400 });
+	}
+	const date = DateTime.fromObject(parsedData).setZone("Asia/Seoul");
+
+	if (!date.isValid) {
+		throw data({
+			error_code: "INVALID_DATE",
+			error_message: "The date is invalid",
+		}, { status: 400 });
+	}
+
+	const today = DateTime.now().setZone("Asia/Seoul").startOf("day");
+	if (date > today) {
+		throw data({
+			error_code: "FUTURE_DATE",
+			error_message: "The date is in the future",
+		}, { status: 400 });
+	}
 	return {
-		year: params.year,
-		month: params.month,
-		day: params.day,
+		date,
 	};
-}
-
-export function action({ params }: Route.ActionArgs) {
-	return {};
 }
 
 export default function DailyLeaderboardPage({ loaderData }: Route.ComponentProps) {
 	return (
 		<div>
-			<h1>Daily Leaderboard {loaderData.year}/{loaderData.month}/{loaderData.day}</h1>
 		</div>
 	);
 }
 
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+	if (isRouteErrorResponse(error)) {
+		return <div>{error.data.error_message} / {error.data.error_code}</div>
+	}
+	if (error instanceof Error) {
+		return <div>{error.message}</div>
+	}
+	return (
+		<div>Unknown error</div>
+	);
+}
