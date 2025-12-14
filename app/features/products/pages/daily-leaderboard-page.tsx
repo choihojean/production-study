@@ -1,7 +1,11 @@
 import { DateTime } from "luxon";
 import type { Route } from "./+types/daily-leaderboard-page";
-import { data, isRouteErrorResponse } from "react-router";
+import { data, isRouteErrorResponse, Link } from "react-router";
 import { z } from "zod";
+import { Hero } from "~/common/components/hero";
+import { ProductCard } from "../components/product-card";
+import { Button } from "~/common/components/ui/button";
+import ProductPagination from "~/common/components/product-pagination";
 
 const paramSchema = z.object({
 	year: z.coerce.number(),
@@ -34,13 +38,48 @@ export const loader = ({ params }: Route.LoaderArgs) => {
 		}, { status: 400 });
 	}
 	return {
-		date,
+		...parsedData
 	};
 }
 
 export default function DailyLeaderboardPage({ loaderData }: Route.ComponentProps) {
+	const urlDate = DateTime.fromObject({
+		year: loaderData.year,
+		month: loaderData.month,
+		day: loaderData.day
+	});
+	const prevDate = urlDate.minus({ days: 1 });
+	const nextDate = urlDate.plus({ days: 1 });
+	const isToday = urlDate.equals(DateTime.now().startOf("day"));
 	return (
-		<div>
+		<div className="space-y-5">
+			<Hero
+				title={`The best products of ${urlDate.toLocaleString(DateTime.DATE_MED)}`}
+			/>
+			<div className="flex item-center justify-center gap-2">
+				<Button variant="secondary" asChild>
+					<Link to={`/products/leaderboards/daily/${prevDate.year}/${prevDate.month}/${prevDate.day}`}>&larr; {prevDate.toLocaleString(DateTime.DATE_SHORT)}</Link>
+				</Button>
+				{!isToday && (
+					<Button variant="secondary" asChild>
+						<Link to={`/products/leaderboards/daily/${nextDate.year}/${nextDate.month}/${nextDate.day}`}>{nextDate.toLocaleString(DateTime.DATE_SHORT)} &rarr;</Link>
+					</Button>
+				)}
+			</div>
+			<div className="space-y-5 w-full max-w-screen-md mx-auto">
+				{Array.from({ length: 10 }).map((_, index) => (
+					<ProductCard
+						key={index}
+						id="productId"
+						name="Product Name"
+						description="This is a description of the product."
+						upvotes={120}
+						comments={12}
+						views={12}
+					/>
+				))}
+			</div>
+			<ProductPagination totalPages={10} />
 		</div>
 	);
 }

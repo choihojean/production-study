@@ -2,7 +2,7 @@ import { cn } from "~/lib/utils";
 
 interface HeroProps {
 	title: string;
-	description: string;
+	description?: string;
 	className?: string;
 }
 

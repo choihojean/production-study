@@ -27,7 +27,7 @@ export function ProductCard({
 	views,
 }: ProductCardProps) {
 	return (
-		<Link to={`/products/${id}`}>
+		<Link to={`/products/${id}`} className="block">
 			<Card className="py-3 w-full bg-transparent hover:bg-card/50 transition-colors">
 				<div className="flex items-stretch">
 					<div className="flex-1">
