@@ -29,9 +29,9 @@ export default function HomePage() {
 						<Link to="/products/leaderboards">Explore All Products &rarr;</Link>
 					</Button>
 				</div>
-				{Array.from({ length: 10 }).map((_, index) => (
+				{Array.from({ length: 10 }, (_, i) => `product-${i}`).map((id) => (
 					<ProductCard
-						key={index}
+						key={id}
 						id="productId"
 						name="Product Name"
 						description="This is a description of the product."
@@ -53,8 +53,9 @@ export default function HomePage() {
 						<Link to="/community">Explore All Discussions &rarr;</Link>
 					</Button>
 				</div>
-				{Array.from({ length: 10 }).map((_, index) => (
+				{Array.from({ length: 10 }, (_, i) => `post-${i}`).map((id) => (
 					<PostCard
+						key={id}
 						id="postId"
 						title="What is the best productivity tool?"
 						author="Hojin"
@@ -77,15 +78,16 @@ export default function HomePage() {
 						<Link to="/ideas">Explore All Ideas &rarr;</Link>
 					</Button>
 				</div>
-				{Array.from({ length: 10 }).map((_, index) => (
+				{Array.from({ length: 10 }, (_, i) => ({ id: `idea-${i}`, claimed: i % 2 === 0 })).map(({ id, claimed }) => (
 					<IdeaCard
+						key={id}
 						id="ideaId"
 						title="A startup that creates an AI-powered generated personal trainer, delivering customized fitness recommendations and tracking of progress using a mobile app to track workouts and progress as well as website to manage a business."
 						views={123}
 						timeAgo="12 hours ago"
 						likes={12}
 						claimLink="/ideas/ideaId/claim"
-						claimed={index % 2 === 0}
+						claimed={claimed}
 					/>
 				))}
 			</div>
@@ -101,9 +103,9 @@ export default function HomePage() {
 						<Link to="/jobs">Explore All Jobs &rarr;</Link>
 					</Button>
 				</div>
-				{Array.from({ length: 11 }).map((_, index) => (
+				{Array.from({ length: 11 }, (_, i) => `job-${i}`).map((id) => (
 					<JobCard
-						key={index}
+						key={id}
 						id="jobId"
 						title="Software Engineer"
 						company="Meta"
@@ -129,9 +131,9 @@ export default function HomePage() {
 						<Link to="/teams">Explore All Teams &rarr;</Link>
 					</Button>
 				</div>
-				{Array.from({ length: 7 }).map((_, index) => (
+				{Array.from({ length: 7 }, (_, i) => `team-${i}`).map((id) => (
 					<TeamCard
-						key={index}
+						key={id}
 						id="teamId"
 						username="hojin"
 						userAvatar="https://github.com/hojin.png"
