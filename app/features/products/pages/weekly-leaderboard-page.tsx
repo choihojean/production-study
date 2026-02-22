@@ -12,6 +12,17 @@ const paramSchema = z.object({
 	week: z.coerce.number(),
 });
 
+export const meta: Route.MetaFunction = ({ params }) => {
+	const date = DateTime.fromObject({
+		weekYear: Number(params.year),
+		weekNumber: Number(params.week),
+	}).setZone("Asia/Seoul");
+	return [
+		{ title: `Best of the week ${date
+			.startOf("week").toLocaleString(DateTime.DATE_SHORT)} - ${date
+			.endOf("week").toLocaleString(DateTime.DATE_SHORT)} | wemake` },
+	];
+}
 export const loader = ({ params }: Route.LoaderArgs) => {
 	const { success, data: parsedData } = paramSchema.safeParse(params);
 	if (!success) {
