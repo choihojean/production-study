@@ -39,7 +39,7 @@ export default function SelectPair({
         name={name}
         required={required}
       >
-        <SelectTrigger>
+        <SelectTrigger className="w-full">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
